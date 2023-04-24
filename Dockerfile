@@ -25,14 +25,24 @@ ARG DEV=false
 # third line installs requirements file
 # fourth line removes the /tmp which removes extra dependancies to keep as lightweight as possible
 # fifth line adds a new user inside the docker. Recommended to not use root. If not made, only root is there.
+# The next lines install the postgresql requirements and then removes the dependencies only needed for install
+# to keep the docker file as small as possible
+#  apk add --update --no-cache postgresql-client && \
+# the vitual flag puts those packages in a .tmp file so we can remove it easier at the bottom
+  #    apk add --update --no-cache --virtual .tmp-build-dev \
+  #      build-base postgresql-dev musl-dev && \
 
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+      build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
+    apk del .tmp-build-deps &&  \
     adduser \
         --disabled-password \
         --no-create-home \
