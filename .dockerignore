@@ -1,0 +1,20 @@
+# Git
+# do not copy the .git file which contains history
+# also does not add gitignore
+.git
+.gitignore
+
+# Docker
+# stops docker extra files beign added
+.docker
+
+
+# Python
+# does not add the py cache that gets added from local machine
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
