@@ -20,9 +20,11 @@ services:
     volumes:
       - ./app:/app
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     environment:
-      # host name is db since its defined below instead of ip
+      # host name is db since it is defined below instead of ip
       - DB_HOST=db
       - DB_NAME=devdb
       - DB_USER=devuser
