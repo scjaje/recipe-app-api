@@ -26,3 +26,4 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(to='core.Ingredient'),
         ),
     ]
+    
