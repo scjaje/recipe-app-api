@@ -4,10 +4,8 @@ Tests for the user API.
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
 from rest_framework.test import APIClient
 from rest_framework import status
-
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
@@ -106,7 +104,6 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
-
     class PrivateUserApiTests(TestCase):
         """Test API request that require authentication"""
 
@@ -133,11 +130,15 @@ class PublicUserApiTests(TestCase):
             """Test POST is not allowed for the me endpoint"""
             res = self.client.post(ME_URL, {})
 
-            self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertEqual(res.status_code,
+                             status.HTTP_405_METHOD_NOT_ALLOWED)
 
         def test_update_user_profile(self):
             """Test updating the user profile for the authenticated user"""
-            payload = {'name': 'Updated name', 'password': 'newpassword123'}
+            payload = {
+                'name': 'Updated name',
+                'password': 'newpassword123'
+            }
 
             res = self.client.patch(ME_URL, payload)
 

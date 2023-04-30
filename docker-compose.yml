@@ -30,6 +30,7 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=changeme
+      - DEBUG=1
     # tells docker that it depends on db so try to wait for db before starting app
     depends_on:
       - db
