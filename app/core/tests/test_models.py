@@ -8,10 +8,10 @@ from django.contrib.auth import get_user_model
 
 from core import models
 
+
 def create_user(email='user@exmaple.com', password='testpass123'):
     """Create and return a new user."""
     return get_user_model().objects.create_user(email, password)
-
 
 class ModelTests(TestCase):
     """Tests models"""
@@ -27,7 +27,6 @@ class ModelTests(TestCase):
 
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
-
 
     def test_new_user_email_normalized(self):
         """Test email is normalized for new users."""
@@ -45,7 +44,6 @@ class ModelTests(TestCase):
         """Test that creating a user without an email raises a ValueError"""
         with self.assertRaises(ValueError):
             get_user_model().objects.create_user('', 'test123')
-
 
     def test_create_superuser(self):
         """Test creating a superuser"""

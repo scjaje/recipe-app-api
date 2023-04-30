@@ -141,4 +141,3 @@ class PrivateTagsApiTests(TestCase):
         res = self.client.get(TAGS_URL, {'assigned_only': 1})
 
         self.assertEqual(len(res.data), 1)
-        
